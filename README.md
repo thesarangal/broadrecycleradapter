@@ -177,55 +177,58 @@ Done! The first time you request a project JitPack checks out the code, builds i
     adapter.addAll(itemList)
     
 #### IV. All Useful Methods
-##### Add Item
+##### * Add Item
 
-    adapter.add(/* OBJECT*/)
+    adapter.add(/* OBJECT */)
     
-##### Add List on the Top
+##### * Add List on the Top
 
-    adapter.addToTop(/* OBJECT*/)
+    adapter.addToTop(/* OBJECT */)
     
-##### Add List on specific Index
+##### * Add List on specific Index
 
-    adapter.add(INDEX_INTEGER, /* OBJECT*/)
+    adapter.add(INDEX_INTEGER, /* OBJECT */)
     
-##### Add List into Adapter
+##### * Add List into Adapter
 
-    adapter.addAll(/* LIST_OF_OBJECT*/)
+    adapter.addAll(/* LIST_OF_OBJECT */)
     
-##### Override New List on Adapter by Clear previous list
+##### * Override New List on Adapter by Clear previous list
 
-    adapter.setItems(/* LIST OF OBJECT*/)
+    adapter.setItems(/* LIST OF OBJECT */)
     
-##### Remove Single Item from Adapter
+##### * Remove Single Item from Adapter
 
-    adapter.remove(/* OBJECT*/)
+    adapter.remove(/* OBJECT */)
     
-##### Clear Adapter List
+##### * Clear Adapter List
 
     adapter.clear()
     
-##### Get Single Item from List of Adapter
+##### * Get Single Item from List of Adapter
 
     adapter.getItem(/* POSITION */)
     
-##### Get Whole List of Items of Adapter
+##### * Get Whole List of Items of Adapter
 
     adapter.getItems()
     
-##### Get MutableLiveDataList to Observer changes in Adapter List
+##### * Get MutableLiveDataList to Observer changes in Adapter List
 
     adapter.getMutableLiveDataList()
     
-##### Check if List of Adapter is empty or not
+##### * Check if List of Adapter is empty or not
 
     adapter.isNotEmpty   
     
-##### Get count of items of adapter list
+##### * Get count of items of adapter list
 
     adapter.itemCount
     
 ##### In addition, you can use all other methods of the RecyclerView Adapter.
+
+
+
 
 
 #### Developed with ❤ by Sarangal
