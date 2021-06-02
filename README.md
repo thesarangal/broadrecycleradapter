@@ -163,6 +163,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
 ##### Note: If you are using Kotlin Coroutines, make sure that you adding items to adapter on Main-Thread.
 
     Kotlin
+    
     val adapter = BroadRecyclerAdapter(itemList)
     
     ...
