@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -12,15 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground"
+        android:foreground="?android:selectableItemBackground"
+        android:background="@color/grey"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{(view) -> data.onItemClick(view)}">
+        android:onClick="@{(view) -> data.onItemClick(view)}"
+        tools:ignore="UnusedAttribute">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/_16dp"
             android:text="@{data.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/delete"
@@ -44,7 +47,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{(view) -> data.onItemClick(view)}"
-            android:padding="16dp"
+            android:padding="@dimen/_16dp"
             android:src="@drawable/ic_baseline_delete_outline_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/checkbox"

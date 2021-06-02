@@ -3,9 +3,11 @@ package `in`.sarangal.broadrecycleradaptersample.activity
 import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
 import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
 import `in`.sarangal.broadrecycleradapter.adapter.BroadRecyclerAdapter
+import `in`.sarangal.broadrecycleradapter.decorator.CustomSpaceDecorator
 import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.ContactItemViewModel
 import `in`.sarangal.broadrecycleradaptersample.R
 import `in`.sarangal.broadrecycleradaptersample.databinding.ActivityMainBinding
+import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.TitleItemViewModel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,7 +15,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 
-class MainActivity : AppCompatActivity(), BaseItemClickListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var binding: ActivityMainBinding
@@ -46,9 +48,9 @@ class MainActivity : AppCompatActivity(), BaseItemClickListener {
         viewModel.adapter?.getMutableLiveDataList()?.observe(this){ list ->
             if(list.isNotEmpty()) {
                 binding.recyclerView.visibility = View.VISIBLE
-                binding.noItemFound.visibility = View.GONE
+                binding.noItemFound.visibility = View.INVISIBLE
             } else {
-                binding.recyclerView.visibility = View.GONE
+                binding.recyclerView.visibility = View.INVISIBLE
                 binding.noItemFound.visibility = View.VISIBLE
             }
         }
@@ -64,9 +66,9 @@ class MainActivity : AppCompatActivity(), BaseItemClickListener {
             viewModel.addItem()
         }
 
-        /* Add Item on Top Click */
-        binding.addBeginningItem.setOnClickListener {
-            viewModel.addItemOnTop()
+        /* Add Item Click */
+        binding.addTitle.setOnClickListener {
+            viewModel.addTitle()
         }
     }
 
@@ -75,44 +77,92 @@ class MainActivity : AppCompatActivity(), BaseItemClickListener {
      * */
     private fun initialize() {
 
+        /* Add Margin Around The Item */
+        val bottomOffsetDecoration = CustomSpaceDecorator(
+            spacing = resources.getDimension(R.dimen._16dp).toInt(),
+            orientation = CustomSpaceDecorator.Orientation.VERTICAL
+        )
+        binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
+
+        /*
+        Reference: README.md
+        I. Adding Simple Single View List in Adapter
+
+        val itemList = ArrayList<TitleItemViewModel>()
+        itemList.add(TitleItemViewModel("Title 1"))
+        itemList.add(TitleItemViewModel("Title 2"))
+        itemList.add(TitleItemViewModel("Title 3"))
+        itemList.add(TitleItemViewModel("Title 4"))
+
+        val adapter = BroadRecyclerAdapter(itemList)
+        binding.recyclerView.adapter = adapter
+
+
+        II. Adding Simple Multi View List in Adapter
+
+        val itemList = ArrayList<BaseItemViewModel>()
+        itemList.add(TitleItemViewModel("Title 1"))
+        itemList.add(ContactItemViewModel("Item Name 1"))
+        itemList.add(TitleItemViewModel("Title 3"))
+        itemList.add(ContactItemViewModel("Item Name 2"))
+
+        val adapter = BroadRecyclerAdapter(itemList)
+        binding.recyclerView.adapter = adapter
+
+
+        III. Add Items Dynamically
+
+        val itemList = ArrayList<BaseItemViewModel>()
+        itemList.add(TitleItemViewModel("Title 1"))
+        itemList.add(ContactItemViewModel("Item Name 1"))
+        itemList.add(TitleItemViewModel("Title 3"))
+        itemList.add(ContactItemViewModel("Item Name 2"))
+
+        val adapter = BroadRecyclerAdapter()
+        binding.recyclerView.adapter = adapter
+
+        adapter.addAll(itemList)
+
+        */
+
         /* Adapter Component */
         if(viewModel.adapter == null){
             viewModel.adapter = BroadRecyclerAdapter(
-                itemClickListener = this
+                itemClickListener = object : BaseItemClickListener {
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    override fun onItemClick(view: View, value: BaseItemViewModel) {
+                        if(value is ContactItemViewModel){
+
+                            when(view.id){
+
+                                R.id.delete -> {
+
+                                    viewModel.adapter?.remove(value)
+                                }
+
+                                else -> {
+
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Item Selected: ${value.checkBoxField.get()}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        }
+                    }
+                }
             )
         }
 
         /* Set Adapter */
         binding.recyclerView.adapter = viewModel.adapter
-    }
-
-    /**
-     * Callback of RecyclerView Click Listener
-     *
-     * @param view View on which user is clicked
-     * @param value Object of the List: You need to cast this object to the type of
-     * list which has been used in the adapter.
-     *
-     * */
-    override fun onItemClick(view: View, value: BaseItemViewModel) {
-        if(value is ContactItemViewModel){
-
-            when(view.id){
-
-                R.id.delete -> {
-
-                    viewModel.adapter?.remove(value)
-                }
-
-                else -> {
-
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Item Selected: ${value.checkBoxField.get()}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-        }
     }
 }
