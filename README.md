@@ -3,6 +3,8 @@ Advance RecyclerView Adapter
 
 BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter.
 
+Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)](https://jitpack.io/#thesarangal/broadrecycleradapter)
+
 
 ### Features
 
