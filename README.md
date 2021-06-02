@@ -1,2 +1,2 @@
 # broadrecycleradapter
-Advance RecyclerView Adapter
+Broad Recycler Adapter

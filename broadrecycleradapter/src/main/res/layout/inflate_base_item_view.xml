@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+This layout file is here only for:
+1. Help to generate "data" variable in BR Class for DataBinding.
+
+Note: No need to use this layout.
+
+- Sarangal
+
+-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="data"
+            type="in.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel" />
+    </data>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</layout>

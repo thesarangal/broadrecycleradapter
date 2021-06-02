@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BroadRecyclerAdapterSample</string>
+    <string name="add_item">Add Item</string>
+    <string name="add_item_at_beginning">Add Item on Top</string>
+    <string name="contact_name_format">Contact Name %1$s</string>
+    <string name="no_items_found">No Items Found</string>
+</resources>
