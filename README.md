@@ -178,7 +178,17 @@ Done! The first time you request a project JitPack checks out the code, builds i
     itemList.add(ContactItemViewModel("Item Name 2"))
     adapter.addAll(itemList)
     
-#### IV. All Useful Methods
+#### IV. Bonus: Use CustomSpaceDecorator Class to Spacing(Margin) around the item layout
+
+    Kotlin
+    
+    val bottomOffsetDecoration = CustomSpaceDecorator(
+        spacing = resources.getDimension(R.dimen._16dp).toInt(),
+        orientation = CustomSpaceDecorator.Orientation.VERTICAL
+    )
+    binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
+    
+#### V. All Useful Methods
 ##### * Add Item
 
     adapter.add(/* OBJECT */)
