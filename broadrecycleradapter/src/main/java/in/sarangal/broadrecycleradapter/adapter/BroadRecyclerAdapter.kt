@@ -120,7 +120,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
             }
 
             /* Bind Data with View */
-            holder.bind(position, itemList[position], itemClickListener)
+            holder.bind(itemList[position], itemClickListener)
         }
     }
 
@@ -144,7 +144,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
          * @param value List Object
          * @param itemClickListener Interface for Click Callback
          * */
-        fun bind(position: Int, value: TYPE, itemClickListener: BaseItemClickListener?) {
+        fun bind(value: TYPE, itemClickListener: BaseItemClickListener?) {
             value.adapterReferences = this@ViewHolder
             value.clickListener = itemClickListener
             binding?.setVariable(BR.data, value)
