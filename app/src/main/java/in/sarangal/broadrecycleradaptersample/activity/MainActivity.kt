@@ -1,17 +1,16 @@
 package `in`.sarangal.broadrecycleradaptersample.activity
 
-import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
-import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
 import `in`.sarangal.broadrecycleradapter.adapter.BroadRecyclerAdapter
 import `in`.sarangal.broadrecycleradapter.decorator.CustomSpaceDecorator
-import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.ContactItemViewModel
+import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
+import `in`.sarangal.broadrecycleradapter.listener.ItemLongClickListener
 import `in`.sarangal.broadrecycleradaptersample.R
 import `in`.sarangal.broadrecycleradaptersample.databinding.ActivityMainBinding
-import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.TitleItemViewModel
-import androidx.appcompat.app.AppCompatActivity
+import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.ContactItemViewModel
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 
@@ -45,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     private fun setObservers() {
 
         /* Observer to notify change in Adapter List */
-        viewModel.adapter?.getMutableLiveDataList()?.observe(this){ list ->
-            if(list.isNotEmpty()) {
+        viewModel.adapter?.getMutableLiveDataList()?.observe(this) { list ->
+            if (list.isNotEmpty()) {
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.noItemFound.visibility = View.INVISIBLE
             } else {
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         )
         binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
 
-        /*
+        /**
         Reference: README.md
         I. Adding Simple Single View List in Adapter
 
@@ -123,12 +122,73 @@ class MainActivity : AppCompatActivity() {
 
         adapter.addAll(itemList)
 
-        */
+        IV. Add Click Listener in Item
+
+        /* Step 1. Add Following Atributes in Item XML Layout */
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{(view) -> data.onItemClick(view)}"
+
+        /* Step 2. Add Click Interface in Adapter */
+        val adapter = BroadRecyclerAdapter(itemList,
+        itemClickListener = object : BaseItemClickListener {
+        override fun onItemClick(view: View, value: BaseItemViewModel) {
+
+        /* Step 4. Identify Multiple View Callback by Class Type */
+        if(value is ContactItemViewModel){
+        when(view.id){
+
+        /* Step 5. Identify Multiple Click by View Id */
+        R.id.delete -> {
+
+        /* Remove Item From Adapter */
+        viewModel.adapter?.remove(value)
+        }
+        else -> {
+        Toast.makeText(
+        this@MainActivity,
+        "Item Selected: ${value.checkBoxField.get()}",
+        Toast.LENGTH_LONG
+        ).show()
+        }
+        }
+        }
+        }
+        })
+        binding.recyclerView.adapter = adapter
+
+         */
 
         /* Adapter Component */
-        if(viewModel.adapter == null){
+        if (viewModel.adapter == null) {
             viewModel.adapter = BroadRecyclerAdapter(
-                itemClickListener = object : BaseItemClickListener {
+                itemClickListener = object : ItemLongClickListener {
+
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    override fun onItemLongClick(view: View, value: BaseItemViewModel) {
+                        if (value is ContactItemViewModel) {
+
+                            when (view.id) {
+
+                                R.id.info -> {
+
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Item Long Pressed",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        }
+                    }
+
                     /**
                      * Callback of RecyclerView Click Listener
                      *
@@ -138,13 +198,23 @@ class MainActivity : AppCompatActivity() {
                      *
                      * */
                     override fun onItemClick(view: View, value: BaseItemViewModel) {
-                        if(value is ContactItemViewModel){
+                        if (value is ContactItemViewModel) {
 
-                            when(view.id){
+                            when (view.id) {
 
                                 R.id.delete -> {
 
+                                    /* Remove Item From Adapter */
                                     viewModel.adapter?.remove(value)
+                                }
+
+                                R.id.info -> {
+
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Please long press on the button",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
 
                                 else -> {
