@@ -1,7 +1,8 @@
 # BroadRecyclerAdapter
 Advance RecyclerView Adapter
 
-BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter.
+BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter helps you to get all benefits of the RecyclerView without creating separate Adapter class for each RecyclerView
+
 
 Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)](https://jitpack.io/#thesarangal/broadrecycleradapter)
 
@@ -11,7 +12,7 @@ Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)
 - Simple and easier implementation
 - With MVVM Support
 - With Data Binding Support
-- Multi-view Support
+- Multi-View Support
 
 ### How to To get a Git project into your build
 
@@ -188,8 +189,13 @@ Done! The first time you request a project JitPack checks out the code, builds i
         orientation = CustomSpaceDecorator.Orientation.VERTICAL
     )
     binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
-    
-#### V. All Useful Methods
+
+#### V. XML Methods
+##### * Add Item Click Listener
+
+    android:onClick="@{(view) -> data.onItemClick(view)}"
+
+#### VI. All Useful Methods
 ##### * Add Item
 
     adapter.add(/* OBJECT */)
