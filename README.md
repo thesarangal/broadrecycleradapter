@@ -1,7 +1,7 @@
 # BroadRecyclerAdapter
 Advance RecyclerView Adapter
 
-BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter helps you to get all benefits of the RecyclerView without creating separate Adapter class for each RecyclerView
+BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter helps you to get all benefits of the RecyclerView without creating separate Adapter class for each RecyclerView.
 
 
 Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)](https://jitpack.io/#thesarangal/broadrecycleradapter)
@@ -190,7 +190,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
     /* Step 1. Add Following Atributes in Item XML Layout */
     android:clickable="true"
     android:focusable="true"
-    app:onLongClick="@{() -> data.onItemClicks(ID_OF_VIEW)}"
+    app:onLongClick="@{() -> data.onItemLongClick(ID_OF_VIEW)}"
 
     e.g.
     <androidx.appcompat.widget.AppCompatImageView
@@ -199,7 +199,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
        android:layout_height="wrap_content"
        android:clickable="true"
        android:focusable="true"
-       app:onLongClick="@{() -> data.onItemClicks(info)}"/>
+       app:onLongClick="@{() -> data.onItemLongClick(info)}"/>
 
     /* Step 2. Add Click Interface in Adapter */
     val adapter = BroadRecyclerAdapter(
@@ -280,7 +280,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
 
     android:onClick="@{(view) -> data.onItemClick(view)}"
 
-#### VII. All Useful Methods
+#### VII. All Useful Methods on Adapter
 ##### * Add Item
 
     adapter.add(/* OBJECT */)
@@ -331,7 +331,22 @@ Done! The first time you request a project JitPack checks out the code, builds i
     
 ##### In addition, you can use all other methods of the RecyclerView Adapter.
 
+#### VII. All Useful Methods on ItemViewModel
+##### * On Item Click
 
+    onItemClick(view: View)
+
+##### * On Item Long Click
+
+    onItemLongClick(view: View)
+
+##### * Get ViewHolder Reference
+
+    getViewHolder()
+
+##### * Get List of Adapter's Items
+
+    getAdapterItemList()
 
 
 
