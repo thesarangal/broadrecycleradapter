@@ -1,6 +1,7 @@
 package `in`.sarangal.broadrecycleradapter.itemviewmodel
 
 import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
+import `in`.sarangal.broadrecycleradapter.listener.ItemLongClickListener
 import android.view.View
 
 /**
@@ -35,6 +36,19 @@ abstract class BaseItemViewModel {
         clickListener?.onItemClick(
             view, this
         )
+    }
+
+    /**
+     * Called for XML Layout view "app:onLongClick"
+     *
+     * @param view View on which User clicked
+     * */
+    open fun onItemClicks(view: View) {
+        clickListener?.apply {
+            if(this is ItemLongClickListener){
+                onItemLongClick(view, this@BaseItemViewModel)
+            }
+        }
     }
 
     /**

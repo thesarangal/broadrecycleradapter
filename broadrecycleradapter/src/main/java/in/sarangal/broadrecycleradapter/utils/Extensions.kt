@@ -1,5 +1,7 @@
 package `in`.sarangal.broadrecycleradapter.utils
 
+import android.view.View
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,4 +26,20 @@ fun RecyclerView.isLastVisible(): Boolean {
         return numItems <= pos + 1
     }
     return false
+}
+
+/**
+ * Long Click Listener
+ *
+ * Custom Binding & Extension Function
+ * */
+@BindingAdapter("onLongClick")
+fun View.onLongClick(function: () -> Unit){
+    setOnLongClickListener {
+
+        /* Execute Block */
+        function()
+
+        true
+    }
 }

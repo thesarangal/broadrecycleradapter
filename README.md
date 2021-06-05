@@ -13,6 +13,7 @@ Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)
 - With MVVM Support
 - With Data Binding Support
 - Multi-View Support
+- Long Click Support
 
 ### How to To get a Git project into your build
 
@@ -145,6 +146,8 @@ Done! The first time you request a project JitPack checks out the code, builds i
                                 
                                     /* Step 5. Identify Multiple Click by View Id */
                                     R.id.delete -> {
+
+                                        /* Remove Item From Adapter */
                                         viewModel.adapter?.remove(value)
                                     }
                                     else -> {
@@ -179,8 +182,90 @@ Done! The first time you request a project JitPack checks out the code, builds i
     itemList.add(TitleItemViewModel("Title 3"))
     itemList.add(ContactItemViewModel("Item Name 2"))
     adapter.addAll(itemList)
-    
-#### IV. Bonus: Use CustomSpaceDecorator Class to Spacing(Margin) around the item layout
+
+#### IV. Add Long Click Listener in Item
+
+    Kotlin
+
+    /* Step 1. Add Following Atributes in Item XML Layout */
+    android:clickable="true"
+    android:focusable="true"
+    app:onLongClick="@{() -> data.onItemClicks(ID_OF_VIEW)}"
+
+    e.g.
+    <androidx.appcompat.widget.AppCompatImageView
+       android:id="@+id/info"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:clickable="true"
+       android:focusable="true"
+       app:onLongClick="@{() -> data.onItemClicks(info)}"/>
+
+    /* Step 2. Add Click Interface in Adapter */
+    val adapter = BroadRecyclerAdapter(
+                                  itemClickListener = object : ItemLongClickListener {
+
+                                      /* Step 3. Long Click Call Back */
+                                      override fun onItemLongClick(view: View, value: BaseItemViewModel) {
+
+                                          /* Step 4. Identify Multiple View Callback by Class Type */
+                                          if (value is ContactItemViewModel) {
+
+                                              /* Step 5. Identify Multiple Click by View Id */
+                                              when (view.id) {
+
+                                                  R.id.info -> {
+
+                                                      Toast.makeText(
+                                                          this@MainActivity,
+                                                          "Item Long Pressed",
+                                                          Toast.LENGTH_LONG
+                                                      ).show()
+                                                  }
+                                              }
+                                          }
+                                      }
+
+                                      /* Step 6. Single Click Call Back */
+                                      override fun onItemClick(view: View, value: BaseItemViewModel) {
+
+                                          /* Step 7. Identify Multiple View Callback by Class Type */
+                                          if (value is ContactItemViewModel) {
+
+                                              /* Step 8. Identify Multiple Click by View Id */
+                                              when (view.id) {
+
+                                                  R.id.delete -> {
+
+                                                      /* Remove Item From Adapter */
+                                                      viewModel.adapter?.remove(value)
+                                                  }
+
+                                                  R.id.info -> {
+
+                                                      Toast.makeText(
+                                                          this@MainActivity,
+                                                          "Please long press on the button",
+                                                          Toast.LENGTH_LONG
+                                                      ).show()
+                                                  }
+
+                                                  else -> {
+
+                                                      Toast.makeText(
+                                                          this@MainActivity,
+                                                          "Item Selected: ${value.checkBoxField.get()}",
+                                                          Toast.LENGTH_LONG
+                                                      ).show()
+                                                  }
+                                              }
+                                          }
+                                      }
+                                  }
+                              )
+    binding.recyclerView.adapter = adapter
+
+#### V. Bonus: Use CustomSpaceDecorator Class to Spacing(Margin) around the item layout
 
     Kotlin
     
@@ -190,12 +275,12 @@ Done! The first time you request a project JitPack checks out the code, builds i
     )
     binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
 
-#### V. XML Methods
+#### VI. XML Methods
 ##### * Add Item Click Listener
 
     android:onClick="@{(view) -> data.onItemClick(view)}"
 
-#### VI. All Useful Methods
+#### VII. All Useful Methods
 ##### * Add Item
 
     adapter.add(/* OBJECT */)

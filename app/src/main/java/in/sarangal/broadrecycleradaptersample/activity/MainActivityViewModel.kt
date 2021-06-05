@@ -24,7 +24,7 @@ class MainActivityViewModel: ViewModel() {
      * Add Another View Item to List
      * */
     fun addTitle(){
-        adapter?.addToTop(
+        adapter?.add(
             TitleItemViewModel("Title")
         )
     }
