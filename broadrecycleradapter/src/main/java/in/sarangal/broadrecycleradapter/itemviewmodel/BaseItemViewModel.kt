@@ -18,7 +18,7 @@ abstract class BaseItemViewModel {
     /**
      * Reference of ViewHolder and Adapter
      * */
-    private var adapterReferences: AdapterReferences ?= null
+    var adapterReferences: AdapterReferences ?= null
 
     /**
      * Click Listener Object
