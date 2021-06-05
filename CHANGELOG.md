@@ -1,6 +1,6 @@
-## Change Log
+# ChangeLog
 
-### Version 1.0.3
+### Version 1.0.4
 #### Date: June 05, 2021
 
 - Long Click Support Added
