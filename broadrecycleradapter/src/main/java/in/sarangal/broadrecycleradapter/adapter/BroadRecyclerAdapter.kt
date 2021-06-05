@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     private val itemList: ArrayList<TYPE> = ArrayList(),
     private val itemClickListener: BaseItemClickListener? = null
-) : RecyclerView.Adapter<BroadRecyclerAdapter.ViewHolder<TYPE>>() {
+) : RecyclerView.Adapter<BroadRecyclerAdapter<TYPE>.ViewHolder<TYPE>>() {
 
     /**
      * Mutable Live Data Containing List of Adapter Items
@@ -130,7 +130,8 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * @param <TYPE> Type of List's object
      * @param itemView View of the Adapter Item
      */
-    class ViewHolder<TYPE : BaseItemViewModel>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder<TYPE : BaseItemViewModel>(itemView: View) : RecyclerView.ViewHolder(itemView),
+        BaseItemViewModel.AdapterReferences {
 
         /**
          * Data Binding Component
@@ -144,7 +145,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
          * @param itemClickListener Interface for Click Callback
          * */
         fun bind(position: Int, value: TYPE, itemClickListener: BaseItemClickListener?) {
-            value.position = position
+            value.adapterReferences = this@ViewHolder
             value.clickListener = itemClickListener
             binding?.setVariable(BR.data, value)
         }
@@ -153,6 +154,20 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
             /* Initialize Data Binding */
             binding = DataBindingUtil.bind(itemView)
+        }
+
+        /**
+         * @return Reference of Current Item's ViewHolder
+         * */
+        override fun getViewHolder(): RecyclerView.ViewHolder {
+            return this@ViewHolder
+        }
+
+        /**
+         * @return List of Current Adapter's Items
+         * */
+        override fun getAdapterList(): List<BaseItemViewModel> {
+            return this@BroadRecyclerAdapter.getItems() ?: listOf()
         }
     }
 

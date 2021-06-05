@@ -3,6 +3,7 @@ package `in`.sarangal.broadrecycleradapter.itemviewmodel
 import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
 import `in`.sarangal.broadrecycleradapter.listener.ItemLongClickListener
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Base Item View Model:
@@ -15,12 +16,9 @@ import android.view.View
 abstract class BaseItemViewModel {
 
     /**
-     * Position of the item in Adapter
-     *
-     * Note: Need to Notify Whole Adapter if You are adding/removing items
-     * randomly from the list
+     * Reference of ViewHolder and Adapter
      * */
-    var position = 0
+    private var adapterReferences: AdapterReferences ?= null
 
     /**
      * Click Listener Object
@@ -43,7 +41,7 @@ abstract class BaseItemViewModel {
      *
      * @param view View on which User clicked
      * */
-    open fun onItemClicks(view: View) {
+    open fun onItemLongClick(view: View) {
         clickListener?.apply {
             if(this is ItemLongClickListener){
                 onItemLongClick(view, this@BaseItemViewModel)
@@ -52,7 +50,33 @@ abstract class BaseItemViewModel {
     }
 
     /**
+     * @return Reference of ViewHolder of the item
+     * */
+    fun getViewHolder() = adapterReferences?.getViewHolder()
+
+    /**
+     * @return List of Items of the Adapter
+     * */
+    fun getAdapterItemList() = adapterReferences?.getAdapterList()
+
+    /**
      * @return Layout file i.e R.layout.view_design
      */
     abstract val viewType: Int
+
+    /**
+     * Interface to Get References from Adapter
+     * */
+    interface AdapterReferences {
+
+        /**
+         * @return Reference of Current Item's ViewHolder
+         * */
+        fun getViewHolder() : RecyclerView.ViewHolder
+
+        /**
+         * @return List of Current Adapter's Items
+         * */
+        fun getAdapterList() : List<BaseItemViewModel>
+    }
 }

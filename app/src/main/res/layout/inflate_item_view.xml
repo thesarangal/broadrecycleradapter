@@ -61,7 +61,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{(view) -> data.onItemClick(view)}"
-            app:onLongClick="@{() -> data.onItemClicks(info)}"
+            app:onLongClick="@{() -> data.onItemLongClick(info)}"
             android:padding="@dimen/_16dp"
             android:src="@drawable/ic_baseline_info_24"
             app:layout_constraintBottom_toBottomOf="parent"
