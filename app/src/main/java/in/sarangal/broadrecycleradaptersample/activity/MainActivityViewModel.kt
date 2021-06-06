@@ -1,6 +1,6 @@
 package `in`.sarangal.broadrecycleradaptersample.activity
 
-import `in`.sarangal.broadrecycleradapter.adapter.BroadRecyclerAdapter
+import `in`.sarangal.broadrecycleradapter.BroadRecyclerAdapter
 import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
 import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.ContactItemViewModel
 import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.TitleItemViewModel
