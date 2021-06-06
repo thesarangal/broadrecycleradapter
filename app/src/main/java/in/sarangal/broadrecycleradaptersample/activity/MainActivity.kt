@@ -1,6 +1,6 @@
 package `in`.sarangal.broadrecycleradaptersample.activity
 
-import `in`.sarangal.broadrecycleradapter.BroadRecyclerAdapter
+import `in`.sarangal.broadrecycleradapter.adapter.BroadRecyclerAdapter
 import `in`.sarangal.broadrecycleradapter.decorator.CustomSpaceDecorator
 import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
 import `in`.sarangal.broadrecycleradapter.listener.ItemLongClickListener
@@ -199,6 +199,74 @@ class MainActivity : AppCompatActivity() {
                      * list which has been used in the adapter.
                      *
                      * */
+
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Item Long Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
                     /**
                      * Callback of RecyclerView Item Long Click Listener
                      *
@@ -275,6 +343,74 @@ class MainActivity : AppCompatActivity() {
                      *
                      * */
 
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
+                    /**
+                     * Callback of RecyclerView Click Listener
+                     *
+                     * @param view View on which user is clicked
+                     * @param value Object of the List: You need to cast this object to the type of
+                     * list which has been used in the adapter.
+                     *
+                     * */
                     /**
                      * Callback of RecyclerView Click Listener
                      *

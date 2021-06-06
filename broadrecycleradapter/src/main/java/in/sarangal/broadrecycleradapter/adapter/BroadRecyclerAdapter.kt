@@ -1,5 +1,6 @@
-package `in`.sarangal.broadrecycleradapter
+package `in`.sarangal.broadrecycleradapter.adapter
 
+import `in`.sarangal.broadrecycleradapter.BR
 import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
 import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
 import `in`.sarangal.broadrecycleradapter.utils.notifyObserver
