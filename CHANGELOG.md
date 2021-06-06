@@ -1,5 +1,10 @@
 # ChangeLog
 
+### Version 1.0.5
+#### Date: June 06, 2021
+
+- Bugs Fixed
+
 ### Version 1.0.4
 #### Date: June 05, 2021
 
