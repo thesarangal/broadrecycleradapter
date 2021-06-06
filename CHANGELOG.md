@@ -1,6 +1,6 @@
 # ChangeLog
 
-### Version 1.0.7
+### Version 1.0.8
 #### Date: June 06, 2021
 
 - Bugs Fixed
