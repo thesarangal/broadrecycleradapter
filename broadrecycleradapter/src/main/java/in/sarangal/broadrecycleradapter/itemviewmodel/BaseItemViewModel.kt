@@ -21,17 +21,12 @@ abstract class BaseItemViewModel {
     var adapterReferences: AdapterReferences ?= null
 
     /**
-     * Click Listener Object
-     * */
-    var clickListener: BaseItemClickListener? = null
-
-    /**
      * Called for XML Layout view "android:onClick"
      *
      * @param view View on which User clicked
      * */
     open fun onItemClick(view: View) {
-        clickListener?.onItemClick(
+        getClickListener()?.onItemClick(
             view, this
         )
     }
@@ -42,12 +37,17 @@ abstract class BaseItemViewModel {
      * @param view View on which User clicked
      * */
     open fun onItemLongClick(view: View) {
-        clickListener?.apply {
-            if(this is ItemLongClickListener){
+        getClickListener()?.apply {
+            if (this is ItemLongClickListener) {
                 onItemLongClick(view, this@BaseItemViewModel)
             }
         }
     }
+
+    /**
+     * @return Reference of Item Click Listener
+     * */
+    fun getClickListener() = adapterReferences?.getClickListener()
 
     /**
      * @return Reference of ViewHolder of the item
@@ -70,13 +70,18 @@ abstract class BaseItemViewModel {
     interface AdapterReferences {
 
         /**
+         * @return Reference of Item Click Listener
+         * */
+        fun getClickListener(): BaseItemClickListener?
+
+        /**
          * @return Reference of Current Item's ViewHolder
          * */
-        fun getViewHolder() : RecyclerView.ViewHolder
+        fun getViewHolder(): RecyclerView.ViewHolder
 
         /**
          * @return List of Current Adapter's Items
          * */
-        fun getAdapterList() : List<BaseItemViewModel>
+        fun getAdapterList(): List<BaseItemViewModel>
     }
 }

@@ -31,8 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
-            android:visibility="gone"
             android:text="@string/no_items_found"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/addItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,24 +40,24 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addItem"
-            android:text="@string/add_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16dp"
             android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_16dp"
+            android:text="@string/add_item"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/addTitle"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addTitle"
-            android:text="@string/add_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_marginBottom="@dimen/_16dp"
+            android:text="@string/add_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addItem" />

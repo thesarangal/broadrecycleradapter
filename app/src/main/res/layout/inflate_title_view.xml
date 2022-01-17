@@ -10,17 +10,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@android:color/holo_purple"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_purple">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16dp"
             android:text="@{data.name}"
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

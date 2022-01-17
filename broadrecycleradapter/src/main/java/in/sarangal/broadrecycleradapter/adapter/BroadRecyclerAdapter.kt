@@ -1,8 +1,8 @@
 package `in`.sarangal.broadrecycleradapter.adapter
 
 import `in`.sarangal.broadrecycleradapter.BR
-import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
 import `in`.sarangal.broadrecycleradapter.itemviewmodel.BaseItemViewModel
+import `in`.sarangal.broadrecycleradapter.listener.BaseItemClickListener
 import `in`.sarangal.broadrecycleradapter.utils.notifyObserver
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     private val itemList: ArrayList<TYPE> = ArrayList(),
-    private val itemClickListener: BaseItemClickListener? = null
+    private var itemClickListener: BaseItemClickListener? = null
 ) : RecyclerView.Adapter<BroadRecyclerAdapter<TYPE>.ViewHolder<TYPE>>() {
 
     /**
@@ -44,17 +44,6 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * */
     private val itemsLiveData: MutableLiveData<MutableList<TYPE>> = MutableLiveData()
 
-    init {
-
-        /* Set Data List to LiveData */
-        itemsLiveData.value = itemList
-    }
-
-    /**
-     * @return LiveData Instance of the items
-     * */
-    fun getMutableLiveDataList() = itemsLiveData
-
     /**
      * If need to update the last item layout
      * in case of last item bottom margin in Pagination
@@ -62,10 +51,14 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     private var isUpdateLastItem = false
 
     /**
-     * @param value TRUE/FALSE to update last item view when list update.
+     * @return LiveData Instance of the items
      * */
-    fun setLastItemUpdate(value: Boolean) {
-        this.isUpdateLastItem = value
+    fun getMutableLiveDataList() = itemsLiveData
+
+    init {
+
+        /* Set Data List to LiveData */
+        itemsLiveData.value = itemList
     }
 
     /**
@@ -120,55 +113,15 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
             }
 
             /* Bind Data with View */
-            holder.bind(itemList[position], itemClickListener)
+            holder.bind(itemList[position])
         }
     }
 
     /**
-     * Generic ViewHolder supporting
-     *
-     * @param <TYPE> Type of List's object
-     * @param itemView View of the Adapter Item
-     */
-    inner class ViewHolder<TYPE : BaseItemViewModel>(itemView: View) : RecyclerView.ViewHolder(itemView),
-        BaseItemViewModel.AdapterReferences {
-
-        /**
-         * Data Binding Component
-         * */
-        private var binding: ViewDataBinding? = null
-
-        /**
-         * Bind Data with View
-         *
-         * @param value List Object
-         * @param itemClickListener Interface for Click Callback
-         * */
-        fun bind(value: TYPE, itemClickListener: BaseItemClickListener?) {
-            value.adapterReferences = this@ViewHolder
-            value.clickListener = itemClickListener
-            binding?.setVariable(BR.data, value)
-        }
-
-        init {
-
-            /* Initialize Data Binding */
-            binding = DataBindingUtil.bind(itemView)
-        }
-
-        /**
-         * @return Reference of Current Item's ViewHolder
-         * */
-        override fun getViewHolder(): RecyclerView.ViewHolder {
-            return this@ViewHolder
-        }
-
-        /**
-         * @return List of Current Adapter's Items
-         * */
-        override fun getAdapterList(): List<BaseItemViewModel> {
-            return this@BroadRecyclerAdapter.getItems() ?: listOf()
-        }
+     * @param value TRUE/FALSE to update last item view when list update.
+     * */
+    fun setLastItemUpdate(value: Boolean) {
+        this.isUpdateLastItem = value
     }
 
     /**
@@ -184,7 +137,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      *                 <code>position</code>. Type codes need not be contiguous.
      */
     override fun getItemViewType(position: Int): Int {
-        itemsLiveData.value?.let { itemList  ->
+        itemsLiveData.value?.let { itemList ->
             if (itemList.size > position) return itemList[position].viewType
         }
         return 0
@@ -198,6 +151,15 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     override fun getItemCount(): Int = itemsLiveData.value?.size ?: 0
 
     /**
+     * Set Item Click Listener
+     *
+     * @param listener Reference of [BaseItemClickListener]
+     * */
+    fun setClickListener(listener: BaseItemClickListener?) {
+        itemClickListener = listener
+    }
+
+    /**
      * Method to add items in the list by clearing previous list
      *
      * @param itemsList         List of items
@@ -205,7 +167,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun setItems(itemsList: List<TYPE>?, notifyDataSet: Boolean = true) {
 
-        if(itemsList == null || itemsList.isEmpty()) return
+        if (itemsList == null || itemsList.isEmpty()) return
 
         this.itemsLiveData.value?.apply {
 
@@ -253,7 +215,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun add(item: TYPE?) {
 
-        if(item == null) return
+        if (item == null) return
 
         itemsLiveData.value?.apply {
 
@@ -283,7 +245,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun add(index: Int, item: TYPE?) {
 
-        if(item == null) return
+        if (item == null) return
 
         itemsLiveData.value?.apply {
 
@@ -310,7 +272,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun addToTop(item: TYPE?) {
 
-        if(item == null) return
+        if (item == null) return
 
         itemsLiveData.value?.apply {
 
@@ -334,7 +296,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun addAll(items: List<TYPE>?) {
 
-        if(items == null || items.isEmpty()) return
+        if (items == null || items.isEmpty()) return
 
         this.itemsLiveData.value?.apply {
 
@@ -397,4 +359,58 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * @return TRUE if item list is not empty else FALSE
      */
     val isNotEmpty: Boolean = itemCount != 0
+
+    /**
+     * Generic ViewHolder supporting
+     *
+     * @param <TYPE> Type of List's object
+     * @param itemView View of the Adapter Item
+     */
+    inner class ViewHolder<TYPE : BaseItemViewModel>(itemView: View) :
+        RecyclerView.ViewHolder(itemView),
+        BaseItemViewModel.AdapterReferences {
+
+        /**
+         * Data Binding Component
+         * */
+        private var binding: ViewDataBinding? = null
+
+        /**
+         * Bind Data with View
+         *
+         * @param value List Object
+         * @param itemClickListener Interface for Click Callback
+         * */
+        fun bind(value: TYPE) {
+            value.adapterReferences = this@ViewHolder
+            binding?.setVariable(BR.data, value)
+        }
+
+        init {
+
+            /* Initialize Data Binding */
+            binding = DataBindingUtil.bind(itemView)
+        }
+
+        /**
+         * @return Reference of Item Click Listener
+         * */
+        override fun getClickListener(): BaseItemClickListener? {
+            return itemClickListener
+        }
+
+        /**
+         * @return Reference of Current Item's ViewHolder
+         * */
+        override fun getViewHolder(): RecyclerView.ViewHolder {
+            return this@ViewHolder
+        }
+
+        /**
+         * @return List of Current Adapter's Items
+         * */
+        override fun getAdapterList(): List<BaseItemViewModel> {
+            return this@BroadRecyclerAdapter.getItems() ?: listOf()
+        }
+    }
 }
