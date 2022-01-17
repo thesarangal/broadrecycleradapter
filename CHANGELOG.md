@@ -1,5 +1,11 @@
 # ChangeLog
 
+### Version 1.0.9
+#### Date: January 18, 2022
+
+- Memory Leak Handling
+- Code Optimization
+
 ### Version 1.0.8
 #### Date: June 06, 2021
 

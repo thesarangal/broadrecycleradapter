@@ -12,7 +12,9 @@
         android:theme="@style/Theme.BroadRecyclerAdapterSample"
         tools:ignore="AllowBackup">
 
-        <activity android:name="in.sarangal.broadrecycleradaptersample.activity.MainActivity">
+        <activity
+            android:name="in.sarangal.broadrecycleradaptersample.activity.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
