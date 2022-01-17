@@ -6,15 +6,15 @@ import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.ContactItemViewMod
 import `in`.sarangal.broadrecycleradaptersample.itemviewmodel.TitleItemViewModel
 import androidx.lifecycle.ViewModel
 
-class MainActivityViewModel: ViewModel() {
+class MainActivityViewModel : ViewModel() {
 
     /* Adapter */
-    var adapter : BroadRecyclerAdapter<BaseItemViewModel>?= null
+    var adapter: BroadRecyclerAdapter<BaseItemViewModel>? = null
 
     /**
      * Add Item to List
      * */
-    fun addItem(){
+    fun addItem() {
         adapter?.add(
             ContactItemViewModel("Item")
         )
@@ -23,7 +23,7 @@ class MainActivityViewModel: ViewModel() {
     /**
      * Add Another View Item to List
      * */
-    fun addTitle(){
+    fun addTitle() {
         adapter?.add(
             TitleItemViewModel("Title")
         )
