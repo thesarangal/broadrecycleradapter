@@ -1,6 +1,6 @@
 # ChangeLog
 
-### Version 1.1.1
+### Version 1.1.2
 #### Date: January 22, 2022
 
 - build.gradle Update
