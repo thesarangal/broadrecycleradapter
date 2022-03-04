@@ -358,7 +358,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     /**
      * @return TRUE if item list is not empty else FALSE
      */
-    val isNotEmpty: Boolean = itemCount != 0
+    fun isNotEmpty(): Boolean = itemCount != 0
 
     /**
      * Generic ViewHolder supporting

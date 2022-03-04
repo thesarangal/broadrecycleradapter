@@ -15,6 +15,8 @@ fun <T> MutableLiveData<T>.notifyObserver() {
 
 /**
  * Check Is Current Item is Last Item
+ *
+ * @return TRUE if Last Item of RecyclerView is completely visible
  * */
 fun RecyclerView.isLastVisible(): Boolean {
     val layoutManager = (layoutManager as LinearLayoutManager)
@@ -32,9 +34,11 @@ fun RecyclerView.isLastVisible(): Boolean {
  * Long Click Listener
  *
  * Custom Binding & Extension Function
+ *
+ * @param function Function
  * */
 @BindingAdapter("onLongClick")
-fun View.onLongClick(function: () -> Unit){
+fun View.onLongClick(function: () -> Unit) {
     setOnLongClickListener {
 
         /* Execute Block */
