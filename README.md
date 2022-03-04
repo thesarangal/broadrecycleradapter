@@ -323,7 +323,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
     
 ##### * Check if List of Adapter is empty or not
 
-    adapter.isNotEmpty   
+    adapter.isNotEmpty()   
     
 ##### * Get count of items of adapter list
 
