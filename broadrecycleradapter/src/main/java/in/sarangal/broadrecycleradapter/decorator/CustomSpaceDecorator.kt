@@ -71,8 +71,10 @@ class CustomSpaceDecorator(
                 left = if (topOrLeft) (horizontalSpacing / 2) else 0
                 right = if (bottomOrRight) (horizontalSpacing / 2) else 0
 
-                parent.setPaddingRelative(horizontalSpacing / 2, parent.paddingTop,
-                    horizontalSpacing / 2, parent.paddingBottom)
+                parent.setPaddingRelative(
+                    horizontalSpacing / 2, parent.paddingTop,
+                    horizontalSpacing / 2, parent.paddingBottom
+                )
 
                 if (position < gridSpan) { /* All Items of First Row */
                     top = if (topOrLeft) verticalSpacing else 0

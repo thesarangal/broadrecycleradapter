@@ -22,7 +22,7 @@ interface BaseItemClickListener {
 /**
  * RecyclerView Adapter Item Long Click Listener Interface
  * */
-interface ItemLongClickListener: BaseItemClickListener {
+interface ItemLongClickListener : BaseItemClickListener {
 
     /**
      * Callback of RecyclerView Item Long Click Listener
