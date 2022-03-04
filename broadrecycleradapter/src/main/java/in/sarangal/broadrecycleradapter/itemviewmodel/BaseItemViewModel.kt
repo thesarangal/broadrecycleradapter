@@ -18,7 +18,7 @@ abstract class BaseItemViewModel {
     /**
      * Reference of ViewHolder and Adapter
      * */
-    var adapterReferences: AdapterReferences ?= null
+    var adapterReferences: AdapterReferences? = null
 
     /**
      * Called for XML Layout view "android:onClick"
