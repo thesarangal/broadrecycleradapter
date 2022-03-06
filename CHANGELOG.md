@@ -1,5 +1,11 @@
 # ChangeLog
 
+### Version 1.1.4
+#### Date: March 05, 2022
+
+- Code Optimization
+- Bugs Fixed
+
 ### Version 1.1.3
 #### Date: January 22, 2022
 
