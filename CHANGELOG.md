@@ -1,5 +1,11 @@
 # ChangeLog 
 
+### Version 1.1.5
+#### Date: September 18, 2022
+
+Added:
+- 'removeAll(arg)' method
+
 ### Version 1.1.4
 #### Date: March 05, 2022
 

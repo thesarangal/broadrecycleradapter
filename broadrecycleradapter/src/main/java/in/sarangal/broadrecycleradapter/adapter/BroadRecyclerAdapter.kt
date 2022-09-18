@@ -356,6 +356,33 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     }
 
     /**
+     * Remove list of elements from the list.
+     *
+     * @param items to be removed
+     */
+    fun removeAll(items: List<TYPE>?) {
+        itemsLiveData.value?.apply {
+
+            if (items == null || items.isEmpty()) return
+
+            items.forEach { item ->
+                val position = indexOf(item)
+                if (position > -1) {
+                    removeAt(position)
+                    notifyItemRemoved(position)
+                }
+            }
+
+            if (isUpdateLastItem && (itemCount > 0)) {
+                notifyItemChanged(itemCount - 1)
+            }
+
+            /* Notify LiveData */
+            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+        }
+    }
+
+    /**
      * @return TRUE if item list is not empty else FALSE
      */
     fun isNotEmpty(): Boolean = itemCount != 0
@@ -379,7 +406,6 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
          * Bind Data with View
          *
          * @param value List Object
-         * @param itemClickListener Interface for Click Callback
          * */
         fun bind(value: TYPE) {
             value.adapterReferences = this@ViewHolder
