@@ -18,7 +18,14 @@ abstract class BaseItemViewModel {
     /**
      * Reference of ViewHolder and Adapter
      * */
-    var adapterReferences: AdapterReferences? = null
+    internal var adapterReferences: AdapterReferences? = null
+
+    /**
+     * Called by ViewHolder when View Created
+     * */
+    open fun onBindViewHolder() {
+        // Can Override in Child Class
+    }
 
     /**
      * Called for XML Layout view "android:onClick"
@@ -46,6 +53,8 @@ abstract class BaseItemViewModel {
 
     /**
      * @return Reference of Item Click Listener
+     *
+     * Developer can get the own listener based on [BaseItemClickListener]
      * */
     fun getClickListener() = adapterReferences?.getClickListener()
 
@@ -58,6 +67,11 @@ abstract class BaseItemViewModel {
      * @return List of Items of the Adapter
      * */
     fun getAdapterItemList() = adapterReferences?.getAdapterList()
+
+    /**
+     * @return Position of ViewHolder
+     * */
+    fun getPosition() = adapterReferences?.getViewPosition()
 
     /**
      * @return Layout file i.e R.layout.view_design
@@ -83,5 +97,10 @@ abstract class BaseItemViewModel {
          * @return List of Current Adapter's Items
          * */
         fun getAdapterList(): List<BaseItemViewModel>
+
+        /**
+         * @return Position of the ViewHolder
+         * */
+        fun getViewPosition(): Int
     }
 }

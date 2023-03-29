@@ -1,5 +1,13 @@
 # ChangeLog 
 
+### Version 1.1.6
+#### Date: March 29, 2023
+
+Added:
+- onBindViewHolder() Method in BaseItemViewModel.kt
+- getViewPosition() Method in BaseItemViewModel.kt
+- indexOf() Method in BroadRecyclerAdapter.kt
+
 ### Version 1.1.5
 #### Date: September 18, 2022
 
