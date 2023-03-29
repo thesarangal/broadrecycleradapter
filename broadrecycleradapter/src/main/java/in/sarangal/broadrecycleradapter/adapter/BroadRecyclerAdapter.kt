@@ -112,8 +112,13 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
                 return
             }
 
-            /* Bind Data with View */
-            holder.bind(itemList[position])
+            itemList[position].let {
+
+                /* Bind Data with View */
+                holder.bind(it)
+
+                it.onBindViewHolder()
+            }
         }
     }
 
@@ -438,5 +443,10 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
         override fun getAdapterList(): List<BaseItemViewModel> {
             return this@BroadRecyclerAdapter.getItems() ?: listOf()
         }
+
+        /**
+         * @return Position of the ViewHolder
+         * */
+        override fun getViewPosition() = absoluteAdapterPosition
     }
 }
