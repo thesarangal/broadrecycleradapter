@@ -213,6 +213,20 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     }
 
     /**
+     * @return Position of the item
+     *
+     * @param item of list
+     */
+    fun indexOf(item: TYPE?): Int {
+
+        item?.let {
+            return itemList.indexOf(item)
+        }
+
+        return -1
+    }
+
+    /**
      * Adds the specified element to the end of this list
      * and notify item inserted
      *
