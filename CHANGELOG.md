@@ -1,5 +1,11 @@
 # ChangeLog 
 
+### Version 1.2.0
+#### Date: April 01, 2023
+
+Update:
+- `CustomSpaceDecorator`: Now Implement with Builder
+
 ### Version 1.1.6
 #### Date: March 29, 2023
 

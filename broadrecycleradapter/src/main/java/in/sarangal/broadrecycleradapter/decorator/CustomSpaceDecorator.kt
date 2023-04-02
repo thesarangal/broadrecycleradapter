@@ -7,27 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Custom decorator [RecyclerView.ItemDecoration] which allows to
  * add custom spaces/margins around the view
- *
- * @param spacing Pass value for all type of spacing
- * @param horizontalSpacing Spacing for Left and Right Side
- * @param verticalSpacing Spacing for Top and Bottom Side
- * @param orientation Orientation of RecyclerView
- * @param topOrLeft Enable/Disable Spacing for Top (in Vertical Orientation) and
- *                  for Left (in Horizontal Orientation)
- * @param bottomOrRight Enable/Disable Spacing for Bottom (in Vertical Orientation) and
- *                  for Right (in Horizontal Orientation)
- * @param gridSpan Span of Grid in Case of GridLayoutManager
  */
-class CustomSpaceDecorator(
-    private val spacing: Int = 0,
-    private val horizontalSpacing: Int = spacing,
-    private val verticalSpacing: Int = spacing,
-    private val orientation: Orientation = Orientation.VERTICAL,
-    private val topOrLeft: Boolean = true,
-    private val bottomOrRight: Boolean = true,
-    private val bottomSpacing: Int? = null,
-    private val gridSpan: Int = 1
-) : RecyclerView.ItemDecoration() {
+class CustomSpaceDecorator private constructor(builder: Builder) : RecyclerView.ItemDecoration() {
+
+    private val horizontalSpacing: Int = builder.horizontalSpacing
+    private val verticalSpacing: Int = builder.verticalSpacing
+    private val orientation: Orientation = builder.orientation
+    private val topOrLeft: Boolean = builder.topOrLeft
+    private val bottomOrRight: Boolean = builder.bottomOrRight
+    private val bottomSpacing: Int? = builder.bottomSpacing
+    private val gridSpan: Int = builder.gridSpan
 
     enum class Orientation {
         VERTICAL, /* Vertical Scrolling in RecyclerView */
@@ -35,6 +24,26 @@ class CustomSpaceDecorator(
         VERTICAL_GRID /* Vertical Scrolling with Grid in RecyclerView */
     }
 
+    /**
+     * Retrieve any offsets for the given item. Each field of <code>outRect</code> specifies
+     * the number of pixels that the item view should be inset by, similar to padding or margin.
+     * The default implementation sets the bounds of outRect to 0 and returns.
+     *
+     * <p>
+     * If this ItemDecoration does not affect the positioning of item views, it should set
+     * all four fields of <code>outRect</code> (left, top, right, bottom) to zero
+     * before returning.
+     *
+     * <p>
+     * If you need to access Adapter for additional data, you can call
+     * {@link RecyclerView#getChildAdapterPosition(View)} to get the adapter position of the
+     * View.
+     *
+     * @param outRect Rect to receive the output.
+     * @param view    The child view to decorate
+     * @param parent  RecyclerView this ItemDecoration is decorating
+     * @param state   The current state of RecyclerView.
+     */
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
@@ -96,6 +105,76 @@ class CustomSpaceDecorator(
             } else {
                 outRect.bottom = if (bottomOrRight) verticalSpacing else 0
             }
+        }
+    }
+
+    /**
+     * Builder Class Pattern to Implement Custom Space Decorator
+     * */
+    class Builder {
+        internal var horizontalSpacing = 0
+        internal var verticalSpacing = 0
+        internal var orientation = Orientation.VERTICAL
+        internal var topOrLeft = true
+        internal var bottomOrRight = true
+        internal var bottomSpacing: Int? = null
+        internal var gridSpan = 1
+
+        /**
+         * @param spacing Pass value for all type of spacing
+         * */
+        fun setSpacing(spacing: Int): Builder = apply {
+            this.horizontalSpacing = spacing
+            this.verticalSpacing = spacing
+        }
+
+        /**
+         * @param horizontalSpacing Spacing for Left and Right Side
+         * */
+        fun setHorizontalSpacing(horizontalSpacing: Int): Builder =
+            apply { this.horizontalSpacing = horizontalSpacing }
+
+        /**
+         * @param verticalSpacing Spacing for Top and Bottom Side
+         * */
+        fun setVerticalSpacing(verticalSpacing: Int): Builder =
+            apply { this.verticalSpacing = verticalSpacing }
+
+        /**
+         * @param orientation Orientation of RecyclerView
+         * */
+        fun setOrientation(orientation: Orientation): Builder =
+            apply { this.orientation = orientation }
+
+        /**
+         * @param topOrLeft Enable/Disable Spacing for Top (in Vertical Orientation) and
+         *                  for Left (in Horizontal Orientation)
+         * */
+        fun setTopOrLeft(topOrLeft: Boolean): Builder = apply { this.topOrLeft = topOrLeft }
+
+        /**
+         * @param bottomOrRight Enable/Disable Spacing for Bottom (in Vertical Orientation) and
+         *                  for Right (in Horizontal Orientation)
+         * */
+        fun setBottomOrRight(bottomOrRight: Boolean): Builder =
+            apply { this.bottomOrRight = bottomOrRight }
+
+        /**
+         * @param bottomSpacing Spacing for Bottom Side
+         * */
+        fun setBottomSpacing(bottomSpacing: Int?): Builder =
+            apply { this.bottomSpacing = bottomSpacing }
+
+        /**
+         * @param gridSpan Span of Grid in Case of GridLayoutManager
+         * */
+        fun setGridSpan(gridSpan: Int): Builder = apply { this.gridSpan = gridSpan }
+
+        /**
+         * Implement CustomSpaceDecorator Constructor
+         * */
+        fun build(): CustomSpaceDecorator {
+            return CustomSpaceDecorator(this)
         }
     }
 }
