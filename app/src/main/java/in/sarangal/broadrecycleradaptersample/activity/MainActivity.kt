@@ -77,10 +77,11 @@ class MainActivity : AppCompatActivity() {
     private fun initialize() {
 
         /* Add Margin Around The Item */
-        val bottomOffsetDecoration = CustomSpaceDecorator(
-            spacing = resources.getDimension(R.dimen._16dp).toInt(),
-            orientation = CustomSpaceDecorator.Orientation.VERTICAL
-        )
+        val bottomOffsetDecoration = CustomSpaceDecorator.Builder()
+            .setSpacing(resources.getDimension(R.dimen._16dp).toInt())
+            .setOrientation(CustomSpaceDecorator.Orientation.VERTICAL)
+            .build()
+
         binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
 
         /**

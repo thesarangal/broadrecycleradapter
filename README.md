@@ -1,11 +1,13 @@
 # BroadRecyclerAdapter
+
 Advance RecyclerView Adapter
 
-BroadRecyclerAdapter is a simple and easy implementation of RecyclerView Adapter helps you to get all benefits of the RecyclerView without creating separate Adapter class for each RecyclerView.
-
+Broad Recycler Adapter is a flexible and easy-to-use RecyclerView adapter for Android applications.
+It provides an easy way to handle different types of items within a single RecyclerView. It helps
+you to get all benefits of the RecyclerView without creating separate Adapter class for each
+RecyclerView.
 
 Current Version: [![](https://jitpack.io/v/thesarangal/broadrecycleradapter.svg)](https://jitpack.io/#thesarangal/broadrecycleradapter)
-
 
 ### Features
 
@@ -34,9 +36,11 @@ Add it in your root build.gradle at the end of repositories:
 	        implementation 'com.github.thesarangal:broadrecycleradapter:VERSION_CODE'
 	}
 
-Done! The first time you request a project JitPack checks out the code, builds it and serves the build artifacts (jar, aar).
+Done! The first time you request a project JitPack checks out the code, builds it and serves the
+build artifacts (jar, aar).
 
 ### How to use BroadRecyclerAdapter
+
 #### I. Adding Simple Single View List in Adapter
 
     Kotlin:
@@ -92,7 +96,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
     /* Step 5. Create Adapter Object and Set on RecyclerView */
     val adapter = BroadRecyclerAdapter(itemList)
     binding.recyclerView.adapter = adapter
-    
+
 #### II. Adding Simple Multi View List in Adapter
 
     Kotlin:
@@ -162,8 +166,9 @@ Done! The first time you request a project JitPack checks out the code, builds i
                         }
                     })
     binding.recyclerView.adapter = adapter
-    
+
 #### III. Add Items Dynamically
+
 ##### Note: If you are using Kotlin Coroutines, make sure that you adding items to adapter on Main-Thread.
 
     Kotlin
@@ -269,85 +274,98 @@ Done! The first time you request a project JitPack checks out the code, builds i
 
     Kotlin
     
-    val bottomOffsetDecoration = CustomSpaceDecorator(
-        spacing = resources.getDimension(R.dimen._16dp).toInt(),
-        orientation = CustomSpaceDecorator.Orientation.VERTICAL
-    )
+    val bottomOffsetDecoration = CustomSpaceDecorator.Builder()
+            .setSpacing(resources.getDimension(R.dimen._16dp).toInt())
+            .setOrientation(CustomSpaceDecorator.Orientation.VERTICAL)
+            .build()
     binding.recyclerView.addItemDecoration(bottomOffsetDecoration)
 
 #### VI. XML Methods
-##### * Add Item Click Listener
+
+#####   * Add Item Click Listener
 
     android:onClick="@{(view) -> data.onItemClick(view)}"
 
 #### VII. All Useful Methods on Adapter
-##### * Add Item
+
+#####   * Add Item
 
     adapter.add(/* OBJECT */)
-    
-##### * Add List on the Top
+
+#####   * Add List on the Top
 
     adapter.addToTop(/* OBJECT */)
-    
-##### * Add List on specific Index
+
+#####   * Add List on specific Index
 
     adapter.add(INDEX_INTEGER, /* OBJECT */)
-    
-##### * Add List into Adapter
+
+#####   * Add List into Adapter
 
     adapter.addAll(/* LIST_OF_OBJECT */)
-    
-##### * Override New List on Adapter by Clear previous list
+
+#####   * Override New List on Adapter by Clear previous list
 
     adapter.setItems(/* LIST OF OBJECT */)
-    
-##### * Remove Single Item from Adapter
+
+#####   * Remove Single Item from Adapter
 
     adapter.remove(/* OBJECT */)
-    
-##### * Clear Adapter List
+
+#####   * Clear Adapter List
 
     adapter.clear()
-    
-##### * Get Single Item from List of Adapter
+
+#####   * Get Single Item from List of Adapter
 
     adapter.getItem(/* POSITION */)
-    
-##### * Get Whole List of Items of Adapter
+
+#####   * Get Whole List of Items of Adapter
 
     adapter.getItems()
-    
-##### * Get MutableLiveDataList to Observer changes in Adapter List
+
+#####   * Get MutableLiveDataList to Observer changes in Adapter List
 
     adapter.getMutableLiveDataList()
-    
-##### * Check if List of Adapter is empty or not
+
+#####   * Check if List of Adapter is empty or not
 
     adapter.isNotEmpty()   
-    
-##### * Get count of items of adapter list
+
+#####   * Get count of items of adapter list
 
     adapter.itemCount
-    
+
 ##### In addition, you can use all other methods of the RecyclerView Adapter.
 
 #### VII. All Useful Methods on ItemViewModel
-##### * On Item Click
+
+#####   * On Item Click
 
     onItemClick(view: View)
 
-##### * On Item Long Click
+#####   * On Item Long Click
 
     onItemLongClick(view: View)
 
-##### * Get ViewHolder Reference
+#####   * Get ViewHolder Reference
 
     getViewHolder()
 
-##### * Get List of Adapter's Items
+#####   * Get List of Adapter's Items
 
     getAdapterItemList()
 
+## Contributions
 
+Contributions to this library are welcome. If you find a bug or have a feature request,
+please open an issue on
+the [GitHub repository](https://github.com/thesarangal/broadrecycleradapter).
+
+## License
+
+This library is released under the [MIT License](https://opensource.org/licenses/MIT).
+You are free to use, modify, and distribute the library for commercial and non-commercial purposes,
+with attribution to the author.
 
 #### Developed with ❤ by Sarangal
