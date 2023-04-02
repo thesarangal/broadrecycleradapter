@@ -220,7 +220,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
     fun indexOf(item: TYPE?): Int {
 
         item?.let {
-            return itemList.indexOf(item)
+            return itemsLiveData.value?.indexOf(item) ?: -1
         }
 
         return -1
