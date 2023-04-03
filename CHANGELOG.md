@@ -1,12 +1,12 @@
 # ChangeLog 
 
-### Version 1.2.1
+### Version 1.2.2
 #### Date: April 03, 2023
 
 Update:
 - `setItems` Method: If EMPTY list will be pass as argument, adapter will be clear.
 
-### Version 1.2.0
+### Version 1.2.1
 #### Date: April 01, 2023
 
 Update:
