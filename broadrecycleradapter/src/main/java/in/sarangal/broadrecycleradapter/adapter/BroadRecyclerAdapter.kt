@@ -172,7 +172,7 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      */
     fun setItems(itemsList: List<TYPE>?, notifyDataSet: Boolean = true) {
 
-        if (itemsList == null || itemsList.isEmpty()) return
+        if (itemsList == null) return
 
         this.itemsLiveData.value?.apply {
 
