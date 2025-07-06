@@ -55,6 +55,11 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * */
     fun getMutableLiveDataList() = itemsLiveData
 
+    /**
+     * For Thread-Safety
+     * */
+    private val lock = Any()
+
     init {
 
         /* Set Data List to LiveData */
@@ -174,19 +179,21 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
         if (itemsList == null) return
 
-        this.itemsLiveData.value?.apply {
+        synchronized(lock) {
+            this.itemsLiveData.value?.apply {
 
-            /* Clear List */
-            clear()
+                /* Clear List */
+                clear()
 
-            /* Add Item in Adapter */
-            this@BroadRecyclerAdapter.addAll(itemsList)
-        }?.also {
-            if (notifyDataSet) {
-                notifyDataSetChanged()
+                /* Add Item in Adapter */
+                this@BroadRecyclerAdapter.addAll(itemsList)
+            }?.also {
+                if (notifyDataSet) {
+                    notifyDataSetChanged()
 
-                /* Notify LiveData */
-                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                    /* Notify LiveData */
+                    this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                }
             }
         }
     }
@@ -236,22 +243,24 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
         if (item == null) return
 
-        itemsLiveData.value?.apply {
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
 
-            /* Add Item */
-            add(item)
-        }?.let {
+                /* Add Item */
+                add(item)
+            }?.let {
 
-            val lastItemPosition = it.size - 1
+                val lastItemPosition = it.size - 1
 
-            if (isUpdateLastItem && lastItemPosition > 0) {
-                notifyItemChanged(lastItemPosition - 1)
+                if (isUpdateLastItem && lastItemPosition > 0) {
+                    notifyItemChanged(lastItemPosition - 1)
+                }
+
+                notifyItemInserted(lastItemPosition)
+
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
             }
-
-            notifyItemInserted(lastItemPosition)
-
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
         }
     }
 
@@ -266,20 +275,22 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
         if (item == null) return
 
-        itemsLiveData.value?.apply {
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
 
-            /* Add Item on Specify Index */
-            add(index, item)
-        }?.let {
+                /* Add Item on Specify Index */
+                add(index, item)
+            }?.let {
 
-            if (isUpdateLastItem && index > 0) {
-                notifyItemChanged(index - 1)
+                if (isUpdateLastItem && index > 0) {
+                    notifyItemChanged(index - 1)
+                }
+
+                notifyItemInserted(index)
+
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
             }
-
-            notifyItemInserted(index)
-
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
         }
     }
 
@@ -293,15 +304,17 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
         if (item == null) return
 
-        itemsLiveData.value?.apply {
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
 
-            /* Add Item on beginning index */
-            this.add(0, item)
-        }?.let {
-            notifyItemInserted(0)
+                /* Add Item on beginning index */
+                this.add(0, item)
+            }?.let {
+                notifyItemInserted(0)
 
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+            }
         }
     }
 
@@ -317,22 +330,24 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
 
         if (items == null || items.isEmpty()) return
 
-        this.itemsLiveData.value?.apply {
+        synchronized(lock) {
+            this.itemsLiveData.value?.apply {
 
-            /* Add List of Items */
-            addAll(items)
-        }?.let {
+                /* Add List of Items */
+                addAll(items)
+            }?.let {
 
-            val newItemPosition = it.size - items.size
+                val newItemPosition = it.size - items.size
 
-            if (isUpdateLastItem && newItemPosition > 0) {
-                notifyItemChanged(newItemPosition - 1)
+                if (isUpdateLastItem && newItemPosition > 0) {
+                    notifyItemChanged(newItemPosition - 1)
+                }
+
+                notifyItemRangeInserted(newItemPosition, items.size)
+
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
             }
-
-            notifyItemRangeInserted(newItemPosition, items.size)
-
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
         }
     }
 
@@ -340,15 +355,17 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * Clear list of the adapter
      */
     fun clear() {
-        itemsLiveData.value?.apply {
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
 
-            /* Clear list of Adapter */
-            clear()
-        }?.let {
-            notifyDataSetChanged()
+                /* Clear list of Adapter */
+                clear()
+            }?.let {
+                notifyDataSetChanged()
 
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+            }
         }
     }
 
@@ -358,17 +375,19 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * @param item to be removed
      */
     fun remove(item: TYPE) {
-        itemsLiveData.value?.apply {
-            val position = indexOf(item)
-            if (position > -1) {
-                removeAt(position)
-                notifyItemRemoved(position)
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
+                val position = indexOf(item)
+                if (position > -1) {
+                    removeAt(position)
+                    notifyItemRemoved(position)
 
-                /* Notify LiveData */
-                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                    /* Notify LiveData */
+                    this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
 
-                if (isUpdateLastItem && (itemCount > 0)) {
-                    notifyItemChanged(itemCount - 1)
+                    if (isUpdateLastItem && (itemCount > 0)) {
+                        notifyItemChanged(itemCount - 1)
+                    }
                 }
             }
         }
@@ -380,24 +399,26 @@ class BroadRecyclerAdapter<TYPE : BaseItemViewModel>(
      * @param items to be removed
      */
     fun removeAll(items: List<TYPE>?) {
-        itemsLiveData.value?.apply {
+        if (items == null || items.isEmpty()) return
 
-            if (items == null || items.isEmpty()) return
+        synchronized(lock) {
+            itemsLiveData.value?.apply {
 
-            items.forEach { item ->
-                val position = indexOf(item)
-                if (position > -1) {
-                    removeAt(position)
-                    notifyItemRemoved(position)
+                items.forEach { item ->
+                    val position = indexOf(item)
+                    if (position > -1) {
+                        removeAt(position)
+                        notifyItemRemoved(position)
+                    }
                 }
-            }
 
-            if (isUpdateLastItem && (itemCount > 0)) {
-                notifyItemChanged(itemCount - 1)
-            }
+                if (isUpdateLastItem && (itemCount > 0)) {
+                    notifyItemChanged(itemCount - 1)
+                }
 
-            /* Notify LiveData */
-            this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+                /* Notify LiveData */
+                this@BroadRecyclerAdapter.itemsLiveData.notifyObserver()
+            }
         }
     }
 

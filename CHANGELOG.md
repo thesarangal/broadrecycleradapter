@@ -1,5 +1,12 @@
 # ChangeLog 
 
+### Version 1.3.0
+#### Date: July 06, 2025
+
+Update:
+- Thread-Safety Added for Iteration Operations
+- Gradle Related Things
+
 ### Version 1.2.2
 #### Date: April 03, 2023
 
